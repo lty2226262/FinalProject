@@ -9,4 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+   <servlet>
+        <servlet-name>Get</servlet-name>
+        <servlet-class>handsome.is.joey.servlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Get</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 </web-app>
