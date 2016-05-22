@@ -21,6 +21,8 @@ public class Get extends HttpServlet {
 		long id1 = Long.parseLong(request.getParameter("id1"));
 		long id2 = Long.parseLong(request.getParameter("id2"));
 		ArrayList<ArrayList<Long>> result = IDTransfer.bfs(id1, id2);
+		String beginEnd = "Results from "+id1+" to "+ id2 + ".";
+		request.setAttribute("beginEnd", beginEnd);
 		request.setAttribute("result", result);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("View.jsp");
 		dispatcher.forward(request, response);	
