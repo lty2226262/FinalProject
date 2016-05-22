@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>
+            Silence make big money.
+        </title>
+        <link rel="stylesheet" media="screen" href="assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" media="screen" href="assets/layout_wide.css" />
+        <link rel="stylesheet" media="screen" href="https://cdn.codementor.io/assets/css_new/home/index-9712a1604a197e9030636297c0bbdb53.css" />
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script>
+            function startDictation() {
+ 
+                if (window.hasOwnProperty('webkitSpeechRecognition')) {
+ 
+                var recognition = new webkitSpeechRecognition();
+ 
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+
+                    recognition.lang = "zh-CN";
+                    document.getElementById('icon1').style.color = 'red';
+                    recognition.start();
+
+                    recognition.onresult = function(e) {
+                        document.getElementById('id1').value
+                                 = e.results[0][0].transcript;
+                        recognition.stop();
+                        document.getElementById('icon1').style.color= 'azure';
+//                        document.getElementById('labnol').submit();
+                        
+                    };
+
+                    recognition.onerror = function(e) {
+                        recognition.stop();
+                    }
+
+                }
+            }
+            function startDictation2() {
+ 
+                if (window.hasOwnProperty('webkitSpeechRecognition')) {
+ 
+                var recognition = new webkitSpeechRecognition();
+ 
+                    recognition.continuous = false;
+                    recognition.interimResults = false;
+
+                    recognition.lang = "zh-CN";
+                    document.getElementById('icon2').style.color= 'red';
+                    recognition.start();
+
+                    recognition.onresult = function(e) {
+                        document.getElementById('id2').value
+                                 = e.results[0][0].transcript;
+                        recognition.stop();
+                        document.getElementById('icon2').style.color= 'azure';
+//                        document.getElementById('labnol').submit();
+                    };
+
+                    recognition.onerror = function(e) {
+                        recognition.stop();
+                    }
+
+                }
+            }
+        </script>
+        <style>
+            form.request-form i{
+                padding-right: 10px;
+                padding-top: 10px;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="minibar ng-scope" ng-controller="MainCtrl">
+        <div class='landing index session-room-background'>
+            <div class='with-request-form'>
+                <div class='headerBlock'>
+                    <div class='hero-unit'>
+                        <center>
+                            <h1 class='headTitle'>
+                                江可泽民<br>
+                                亦可赛艇
+                            </h1>
+                            <h3 style='font-size: 20px;color: rgba(255,255,255,0.8);'>
+                                你们这些年轻人啊
+                            </h3>
+                        </center>
+                    </div>   
+                    
+                    <div class="customizeContainer">
+                        <div class="row-fluid request-form-wrapper">
+                            <div class='span10 offset1'>
+                                <form class="request-form" ng-submit="formPosted=true;ic.onSubmitIndexRequestForm()" action="/get" accept-charset="UTF-8" method="get">
+                                    <input id='id1' name='id1' placeholder='this is ID1' required='required' type='text'>
+                                    <i class="fa fa-microphone" style="font-size:30px;color:azure" onclick="startDictation()" id="icon1"></i> 
+                                    <input id='id2' name='id2' placeholder='this is ID2' required='required' type='text'>
+                                    <i class="fa fa-microphone" style="font-size:30px;color:azure;" onclick="startDictation2()" id='icon2'></i> 
+                                    <button class='btn btn-red' type='submit'>
+                                        <span ng-hide='formPosted'>
+                                            搞个大新闻
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>    
+</html>
