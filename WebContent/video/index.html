@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            Make your voice heard.
+        </title>
+        <link rel="stylesheet" media="screen" href="../assets/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" media="screen" href="../assets/layout_wide.css" />
+        <link rel="stylesheet" media="screen" href="https://cdn.codementor.io/assets/css_new/home/index-9712a1604a197e9030636297c0bbdb53.css" />
+        <link rel="stylesheet" media="screen" href="https://cdn.codementor.io/assets/css_new/home/get_help_now-b36da489d9936574fa9b718c05d03224.css" />
+        <link rel="stylesheet" media="screen" href="https://cdn.codementor.io/assets/css_new/home/directory_new_for_clients-7a271478fbb18bde9958e42c708dd110.css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    </head>
+    <body class="minibar" ng-controller="MainCtrl">
+	    <div class="navbar menu_new_v2" id="main-header" style="margin-bottom:0px;">
+            <div class="navbar-inner notFixed">
+                <div class="container">
+                    <ul class="nav pull-left">
+                        <li>
+                            <a href="#">Hello World</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    	<div id="main" role="main" style="margin-top:0px;">
+        	<div class="directory ng-scope" ng-controller="GetHelpNowCtrl as getHelpNowCtrl">
+				<div class="resultBlock" ng-class="{resultOpacity:isSearch}">
+		            <div class = "customizeContainer">
+		           		<div class="switchBlock">
+			                <div class="row-fluid">
+			                    <div class ="span6" align="center">
+			                        <h2 class="sub-title">
+			                        </h2>
+			                        <hr class="bg-splitter">
+			                        <div class="expert-list" ng-hide="loaded" style="margin-top: 10px">
+			                        	<div class="mentorModule" style="width: 680px">
+			                        		<div class="row-fluid mentor-item-row">
+			                        			<video id="video" width="640" height="480" autoplay="true"></video>
+											</div>
+										</div>
+								        	
+
+                                        <button class="btn btn-red" id="snap" style="margin-bottom:20px">Snap Photo</button>
+
+										<div class="mentorModule" style="width: 680px">
+			                        		<div class="row-fluid mentor-item-row">
+			                        			<canvas id="canvas" width="640" height="480"></canvas>
+											</div>
+										</div>
+										
+										<div class="mentorModule" style="width: 680px">
+			                        		<div class="row-fluid mentor-item-row">
+			                        			<p id="base644"></p>
+											</div>
+										</div>
+									</div>
+			                    </div>
+			            	</div>
+		                </div>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+	
+		<script>
+	
+			// Put event listeners into place
+			window.addEventListener("DOMContentLoaded", function() {
+				// Grab elements, create settings, etc.
+				var canvas = document.getElementById("canvas"),
+					context = canvas.getContext("2d"),
+					video = document.getElementById("video"),
+					base644 = document.getElementById("base644"),
+					videoObj = { "video": true },
+					errBack = function(error) {
+						console.log("Video capture error: ", error.code); 
+					};
+	
+				// Put video listeners into place
+				if(navigator.getUserMedia) { // Standard
+					navigator.getUserMedia(videoObj, function(stream) {
+						video.src = stream;
+						video.play();
+					}, errBack);
+				} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+					navigator.webkitGetUserMedia(videoObj, function(stream){
+						video.src = window.webkitURL.createObjectURL(stream);
+						video.play();
+					}, errBack);
+				} else if(navigator.mozGetUserMedia) { // WebKit-prefixed
+					navigator.mozGetUserMedia(videoObj, function(stream){
+						video.src = window.URL.createObjectURL(stream);
+						video.play();
+					}, errBack);
+				}
+	
+				// Trigger photo take
+				document.getElementById("snap").addEventListener("click", function() {
+					context.drawImage(video, 0, 0, 640, 480);
+					var image = canvas.toDataURL("image/jpg");
+/* 					window.location = image; */
+						
+					base644.innerHTML = image;
+					$.ajax({
+						 url: "https://api.projectoxford.ai/vision/v1.0/analyze?" + $.param(params),
+	                    beforeSend: function(xhrObj) {
+	                        // Request headers
+	                        xhrObj.setRequestHeader("Content-Type", "application/octet-stream");
+	                        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","7771debe2b4a46279646ecd0fa8e6f19");
+	                    },
+	                    type: "POST",
+	                    data: image,
+	                })
+	                .done(function(jpegBlob) {
+	                    JSON.stringify(jpegBlob);
+	                    alert(JSON.stringify(jpegBlob));
+	                })
+	                .fail(function(error) {
+	                    alert(error.getAllResponseHeaders());
+	                });
+				});
+			}, false);
+		</script>
+    </body>
+</html>

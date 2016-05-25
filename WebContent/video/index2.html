@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0028)http://localhost:8080/video/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    	
+        <title>
+            Make your voice heard.
+        </title>
+        <link rel="stylesheet" media="screen" href="./index2_files/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="./index2_files/layout_wide.css">
+        <link rel="stylesheet" media="screen" href="./index2_files/index-9712a1604a197e9030636297c0bbdb53.css">
+        <link rel="stylesheet" media="screen" href="./index2_files/get_help_now-b36da489d9936574fa9b718c05d03224.css">
+        <link rel="stylesheet" media="screen" href="./index2_files/directory_new_for_clients-7a271478fbb18bde9958e42c708dd110.css">
+    </head>
+    <body class="minibar" ng-controller="MainCtrl">
+	    <div class="navbar menu_new_v2" id="main-header" style="margin-bottom:0px;">
+            <div class="navbar-inner notFixed">
+                <div class="container">
+                    <ul class="nav pull-left">
+                        <li>
+                            <a href="http://localhost:8080/video/#">Hello World</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    	<div id="main" role="main" style="margin-top:0px;">
+        	<div class="directory ng-scope" ng-controller="GetHelpNowCtrl as getHelpNowCtrl">
+				<div class="resultBlock" ng-class="{resultOpacity:isSearch}">
+		            <div class="customizeContainer">
+		           		<div class="switchBlock">
+			                <div class="row-fluid">
+			                    <div class="span12" align="center">
+			                        <h2 class="sub-title">
+			                        </h2>
+			                        <hr class="bg-splitter">
+			                        <div class="expert-list" ng-hide="loaded" style="margin-top: 10px;width: 680px;">
+			                        	<div class="mentorModule">
+			                        		<div class="row-fluid mentor-item-row" style="
+												    width: 640px;
+												">
+			                        			<video id="video" width="640" height="480" autoplay="true" src="blob:http%3A//localhost%3A8080/b6148830-8368-4e49-b165-ed2fcb0cdfdb"></video>
+											</div>
+										</div>
+								        	
+										<div class="mentorModule">
+			                        		<div class="row-fluid mentor-item-row">
+			                        			<button id="snap">Snap Photo</button>
+											</div>
+										</div>
+										<div class="mentorModule">
+			                        		<div class="row-fluid mentor-item-row">
+			                        			<canvas id="canvas" width="640" height="480"></canvas>
+											</div>
+										</div>
+									</div>
+			                    </div>
+			            	</div>
+		                </div>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+	
+		<script>
+	
+			// Put event listeners into place
+			window.addEventListener("DOMContentLoaded", function() {
+				// Grab elements, create settings, etc.
+				var canvas = document.getElementById("canvas"),
+					context = canvas.getContext("2d"),
+					video = document.getElementById("video"),
+					videoObj = { "video": true },
+					errBack = function(error) {
+						console.log("Video capture error: ", error.code); 
+					};
+	
+				// Put video listeners into place
+				if(navigator.getUserMedia) { // Standard
+					navigator.getUserMedia(videoObj, function(stream) {
+						video.src = stream;
+						video.play();
+					}, errBack);
+				} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+					navigator.webkitGetUserMedia(videoObj, function(stream){
+						video.src = window.webkitURL.createObjectURL(stream);
+						video.play();
+					}, errBack);
+				} else if(navigator.mozGetUserMedia) { // WebKit-prefixed
+					navigator.mozGetUserMedia(videoObj, function(stream){
+						video.src = window.URL.createObjectURL(stream);
+						video.play();
+					}, errBack);
+				}
+	
+				// Trigger photo take
+				document.getElementById("snap").addEventListener("click", function() {
+					context.drawImage(video, 0, 0, 640, 480);
+				});
+			}, false);
+	
+		</script>
+    
+</body></html>
