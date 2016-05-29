@@ -40,34 +40,7 @@
 
                 }
             }
-            function startDictation2() {
- 
-                if (window.hasOwnProperty('webkitSpeechRecognition')) {
- 
-                var recognition = new webkitSpeechRecognition();
- 
-                    recognition.continuous = false;
-                    recognition.interimResults = false;
-
-                    recognition.lang = "zh-CN";
-                    document.getElementById('icon2').style.color= 'red';
-                    recognition.start();
-
-                    recognition.onresult = function(e) {
-                        document.getElementById('id2').value
-                                 = e.results[0][0].transcript;
-                        recognition.stop();
-                        document.getElementById('icon2').style.color= 'azure';
-//                        document.getElementById('labnol').submit();
-                    };
-
-                    recognition.onerror = function(e) {
-                        recognition.stop();
-                    }
-
-                }
-            }
-        </script>
+		</script>
         <style>
             form.request-form i{
                 padding-right: 10px;
@@ -83,12 +56,13 @@
                 <div class='headerBlock'>
                     <div class='hero-unit'>
                         <center>
+                        	<br>
+                        	<br>
                             <h1 class='headTitle'>
-                                江可泽民<br>
-                                亦可赛艇
+                                Lighthouse
                             </h1>
-                            <h3 style='font-size: 20px;color: rgba(255,255,255,0.8);'>
-                                你们这些年轻人啊
+                            <h3 style='font-size: 18px;color: rgba(255,255,255,0.8);'>
+                                YOUR PRIVATE ACADEMIC ADVISOR
                             </h3>
                         </center>
                     </div>   
@@ -97,30 +71,17 @@
                         <div class="row-fluid request-form-wrapper">
                             <div class='span10 offset1'>
                                 <form class="request-form" ng-submit="formPosted=true;ic.onSubmitIndexRequestForm()" action="/get" accept-charset="UTF-8" method="get">
-                                    <input id='id1' name='id1' placeholder='this is ID1' required='required' type='text'>
+                                    <input id='id1' name='id1' placeholder='need help' required='required' type='text'>
                                     <i class="fa fa-microphone" style="font-size:30px;color:azure" onclick="startDictation()" id="icon1"></i> 
-                                    <input id='id2' name='id2' placeholder='this is ID2' required='required' type='text'>
-                                    <i class="fa fa-microphone" style="font-size:30px;color:azure;" onclick="startDictation2()" id='icon2'></i> 
                                     <button class='btn btn-red' type='submit'>
                                         <span ng-hide='formPosted'>
-                                            搞个大新闻
+                                            set sail
                                         </span>
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class='hero-unit'>
-                        <center>
-                        	<a href="/video">
-	                            <h3 style='font-size: 20px;color: rgba(255,255,255,0.8);'>
-	                                渴望力量吗？
-	                            </h3>
-                            </a>
-                        </center>
-                    </div>  
-                    
                 </div>
             </div>
         </div>
